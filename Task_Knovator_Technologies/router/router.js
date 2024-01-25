@@ -65,7 +65,7 @@ router.post("/postData",passport.authenticate('jwt',{session:false}),async (req,
         const postData = new PostUser({
             title : req.body.title,
             body : req.body.body,
-            createdby : user._id,
+            createdby : user.uName,
             isActive : req.body.isActive,
             latitude : req.body.latitude,
             longitude : req.body.longitude
@@ -106,8 +106,7 @@ router.get("/PostStatusCount",async(req,res)=>{
             }
             var lengthOfgetData = getdata.length
             const inactive = Number(lengthOfgetData) - (count)
-            // console.log("Active:-"+count);
-            // console.log("inActive:-"+inactive);
+           
         res.send(`active status = ${count}, inActive Status = ${inactive}`)
 
     } catch (error) {
@@ -123,8 +122,7 @@ router.get("/logout", auth, async (req, res) => {
     try {
       const user = req.user;
       const tokenToRemove = req.token
-        console.log(tokenToRemove);
- 
+
       user.Tokens = await user.Tokens.filter(ele => ele.token != tokenToRemove);
 
       const dt = await user.save();
@@ -138,12 +136,9 @@ router.get("/logout", auth, async (req, res) => {
 
 router.get("/logoutAll", auth, async (req, res) => {
     try {
-      const user = req.user;
-    //   const token = req.token;
-        console.log(user);
+      const user = req.user;    
       // Remove the token from the user's Tokens array
       user.Tokens = []
-  
       // Save the user with the updated Tokens array
       const dt = await user.save();
         console.log(dt);

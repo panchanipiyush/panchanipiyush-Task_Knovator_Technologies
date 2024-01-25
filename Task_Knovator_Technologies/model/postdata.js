@@ -12,7 +12,7 @@ const postSchema = new mongoose.Schema({
         required: true
     },
     createdby: {
-        type: mongoose.Schema.Types.ObjectId
+       type:String
     },
     isActive: {
         type: Boolean,

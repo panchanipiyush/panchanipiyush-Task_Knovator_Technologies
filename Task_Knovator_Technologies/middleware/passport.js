@@ -7,7 +7,7 @@ module.exports =
     function (passport) {
         var params = {
             secretOrKey: process.env.SECRETKEY,
-            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()      
+            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()   
         };
         passport.use(
             new JwtStrategy(params, function (jwt_payload, next) {
